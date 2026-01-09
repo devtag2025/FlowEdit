@@ -1,330 +1,278 @@
-// "use client";
-// import React, { useState } from "react";
-// import Link from "next/link";
-// // import handleLogout from "@/utils/logout";
-// import { useRouter } from "next/navigation";
-// import { usePathname } from "next/navigation";
-// import Image from "next/image";
-// import {
-//   LayoutDashboard,
-//   Search,
-//   Settings,
-//   LogOut,
-//   Menu,
-//   X,
-//   Globe,
-//   Loader2,
-// } from "lucide-react";
-// // import { useAuthStore } from "@/stores/authStore";
-// // import { DollarSign } from "lucide-react";
+"use client";
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+import {
+  LayoutDashboard,
+  Settings,
+  LogOut,
+  Menu,
+  X,
+  Loader2,
+  Bell,
+  NotebookIcon,
+  PencilRuler,
+  Share2,
+} from "lucide-react";
 
-// export default function DashboardLayout({ children }) {
-//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-//   const [isLoading, setIsLoading] = useState(false);
-//   const pathname = usePathname();
-//   const router = useRouter();
-//   const user = useAuthStore((state) => state.user);
+export default function DashboardLayout({ children }) {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
-//   const navigation = [
-//     {
-//       name: "Overview",
-//       href: "/dashboard",
-//       icon: LayoutDashboard,
-//     },
-//     {
-//       name: "Discover",
-//       href: "/dashboard/analyze",
-//       icon: Search,
-//     },
-//     {
-//       name: "Settings",
-//       href: "/dashboard/settings",
-//       icon: Settings,
-//     },
-//   ];
+  const navigation = [
+    {
+      name: "Dashboard",
+      href: "/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      name: "Projects",
+      href: "/dashboard/projects",
+      icon: NotebookIcon,
+    },
+    {
+      name: "Notification",
+      href: "/dashboard/notification",
+      icon: Bell,
+    },
+    {
+      name: "Branding",
+      href: "/dashboard/branding",
+      icon: PencilRuler,
+    },
+    {
+      name: "Social",
+      href: "/dashboard/social",
+      icon: Share2,
+    },
+  ];
 
-//   const isActive = (href) => {
-//     if (href === "/dashboard") {
-//       return pathname === href;
-//     }
-//     return pathname?.startsWith(href);
-//   };
+  const isActive = (href) => {
+    if (href === "/dashboard") {
+      return pathname === href;
+    }
+    return pathname?.startsWith(href);
+  };
 
-//   const onLogout = async () => {
-//     setIsLoading(true);
-//     try {
-//       await handleLogout();
-//       router.push("/login");
-//     } catch (error) {
-//       console.error("Logout failed:", error);
-//     } finally {
-//       setIsLoading(false);
-//     }
-//   };
+  const onLogout = async () => {
+    setIsLoading(true);
+    try {
+      // await handleLogout();
+      router.push("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-//   return (
-//     <div className="min-h-screen bg-black text-white">
-//       {/* Desktop Sidebar - UNCHANGED */}
-//       <aside
-//         className={`fixed top-0 left-0 z-40 h-screen transition-transform duration-300 ${
-//           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-//         } lg:translate-x-0 w-72`}
-//       >
-//         <div className="h-full flex flex-col bg-gradient-to-b from-black via-purple-950/10 to-black border-r border-white/10 backdrop-blur-xl">
-//           {/* Logo */}
-//           <div className="p-6 border-b border-white/10">
-//             <Link href="/dashboard" className="flex items-center gap-3 group">
-//               <Image
-//                 src="/Logo.png"
-//                 alt="Dashboard Logo"
-//                 width={200}
-//                 height={200}
-//                 className="object-cover opacity-80 transition-opacity group-hover:opacity-100"
-//                 priority
-//               />
-//             </Link>
-//           </div>
+  return (
+    <div className="min-h-screen bg-secondary text-white">
+      
+      <aside
+        className={`fixed top-0 left-0 z-40 h-screen transition-transform duration-300 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:translate-x-0 w-72`}
+      >
+        <div className="h-full flex flex-col bg-gradient-to-b bg-primary border-r border-white/10 backdrop-blur-xl">
+        
+          <div className="flex items-center justify-between px-6 pt-8 pb-6 border-b border-white/10">
+            <Link href="/dashboard" className="flex items-center gap-3 group">
+              <span className="text-3xl font-extrabold font-onest">
+                FlowEdit
+              </span>
+            </Link>
+            
+           
+            <button
+              onClick={() => setIsSidebarOpen(false)}
+              className="lg:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+              aria-label="Close sidebar"
+            >
+              <X className="w-5 h-5 text-white" />
+            </button>
+          </div>
 
-//           {/* Navigation */}
-//           <nav className="flex-1 p-4 space-y-2 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-//             {navigation.map((item) => {
-//               const Icon = item.icon;
-//               const active = isActive(item.href);
+        
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              const active = isActive(item.href);
 
-//               return (
-//                 <Link
-//                   key={item.name}
-//                   href={item.href}
-//                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group ${
-//                     active
-//                       ? "bg-purple-500/20 border border-purple-500/50 shadow-lg shadow-purple-500/20"
-//                       : "hover:bg-white/5 border border-transparent hover:border-purple-500/30"
-//                   }`}
-//                   aria-current={active ? "page" : undefined}
-//                 >
-//                   <Icon
-//                     className={`w-5 h-5 transition-colors ${
-//                       active
-//                         ? "text-purple-400"
-//                         : "text-gray-400 group-hover:text-purple-400"
-//                     }`}
-//                   />
-//                   <span
-//                     className={`font-medium ${
-//                       active
-//                         ? "text-white"
-//                         : "text-gray-400 group-hover:text-white"
-//                     }`}
-//                   >
-//                     {item.name}
-//                   </span>
-//                   {active && (
-//                     <div className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
-//                   )}
-//                 </Link>
-//               );
-//             })}
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`flex items-center gap-3 px-4 py-3.5 rounded-xl transition-all duration-300 group ${
+                    active
+                      ? "bg-purple-500/20 border border-purple-500/50 shadow-lg shadow-purple-500/20"
+                      : "hover:bg-white/5 border border-transparent hover:border-purple-500/30 active:bg-white/10"
+                  }`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  <Icon
+                    className={`w-5 h-5 transition-colors ${
+                      active
+                        ? "text-accent"
+                        : "text-tertiary group-hover:text-accent/40"
+                    }`}
+                  />
+                  <span
+                    className={`font-medium ${
+                      active
+                        ? "text-accent"
+                        : "text-tertiary group-hover:text-accent/40"
+                    }`}
+                  >
+                    {item.name}
+                  </span>
+                  {active && (
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                  )}
+                </Link>
+              );
+            })}
 
-//             {/* Desktop Logout Button */}
-//             <button
-//               disabled={isLoading}
-//               onClick={onLogout}
-//               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl 
-//                 hover:bg-white/5 border border-transparent hover:border-purple-500/30 
-//                 transition-all duration-300 group text-left
-//                 ${
-//                   isLoading
-//                     ? "opacity-70 cursor-not-allowed"
-//                     : "hover:scale-[1.02]"
-//                 }`}
-//               aria-busy={isLoading}
-//               aria-label={isLoading ? "Logging out…" : "Logout"}
-//             >
-//               {isLoading ? (
-//                 <>
-//                   <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
-//                   <span className="font-medium text-gray-400">
-//                     Logging out…
-//                   </span>
-//                 </>
-//               ) : (
-//                 <>
-//                   <LogOut className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors" />
-//                   <span className="font-medium text-gray-400 group-hover:text-white transition-colors">
-//                     Logout
-//                   </span>
-//                 </>
-//               )}
-//             </button>
-//           </nav>
+            
+            <button
+              disabled={isLoading}
+              onClick={onLogout}
+              className={`w-full flex items-center gap-3 px-4 py-3.5 rounded-xl 
+                hover:bg-white/5 border border-transparent hover:border-purple-500/30 
+                transition-all duration-300 group text-left active:bg-white/10
+                ${
+                  isLoading
+                    ? "opacity-70 cursor-not-allowed"
+                    : "hover:scale-[1.02]"
+                }`}
+              aria-busy={isLoading}
+              aria-label={isLoading ? "Logging out…" : "Logout"}
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="w-5 h-5 animate-spin text-purple-400" />
+                  <span className="font-medium text-gray-400">
+                    Logging out…
+                  </span>
+                </>
+              ) : (
+                <>
+                  <LogOut className="w-5 h-5 text-gray-400 group-hover:text-purple-400 transition-colors" />
+                  <span className="font-medium text-gray-400 group-hover:text-white transition-colors">
+                    Logout
+                  </span>
+                </>
+              )}
+            </button>
+          </nav>
 
-//           {/* User Profile */}
-//           <div className="p-4 border-t border-white/10">
-//             <div className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-pointer">
-//               <div className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-br from-purple-600 to-purple-400 flex items-center justify-center font-semibold text-sm text-white">
-//                 {user?.picture ? (
-//                   <Image
-//                     width={200}
-//                     height={200}
-//                     src={user?.picture}
-//                     alt={user?.name}
-//                     className="w-full h-full object-cover"
-//                   />
-//                 ) : (
-//                   <span>
-//                     {user?.name
-//                       ?.split(" ")
-//                       .map((n) => n[0])
-//                       .slice(0, 2)
-//                       .join("")
-//                       .toUpperCase()}
-//                   </span>
-//                 )}
-//               </div>
+         
+         <div className="p-4 border-t border-white/10">
+            <div className="flex items-center gap-1 p-1 rounded-full bg-white/5 border border-white/10">
+              <button
+                className="flex-1 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 lg:bg-white lg:text-purple-600 lg:shadow-lg hidden lg:block"
+              >
+                Desktop
+              </button>
+              <button
+                className="flex-1 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 lg:text-gray-400 lg:hover:text-white lg:hidden bg-white text-purple-600 shadow-lg"
+              >
+                Mobile
+              </button>
+              <button
+                className="flex-1 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 text-gray-400 hover:text-white hidden lg:block"
+              >
+                Mobile
+              </button>
+              <button
+                className="flex-1 px-4 py-2.5 rounded-full font-medium text-sm transition-all duration-300 text-gray-400 hover:text-white lg:hidden"
+              >
+                Desktop
+              </button>
+            </div>
+          </div>
+        </div>
+      </aside>
 
-//               <div className="flex-1 min-w-0">
-//                 <div className="text-sm font-semibold text-white truncate">
-//                   {user?.name}
-//                 </div>
-//                 <div className="text-xs text-gray-400 truncate">Free Plan</div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </aside>
+    
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/60 lg:hidden backdrop-blur-sm"
+          onClick={() => setIsSidebarOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
-//       {/* Mobile Sidebar Overlay */}
-//       {isSidebarOpen && (
-//         <div
-//           className="fixed inset-0 z-30 bg-black/60 lg:hidden"
-//           onClick={() => setIsSidebarOpen(false)}
-//           aria-hidden="true"
-//         />
-//       )}
+     
+      <div className="lg:ml-72 pb-20 lg:pb-0">
+     
+        <header className="sticky top-0 z-20 bg-secondary border-b border-gray-800">
+          <div className="flex items-center justify-between px-4 py-3 lg:px-6 lg:py-4">
+         
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                className="lg:hidden p-2 rounded-lg hover:bg-gray-900 border border-gray-800 transition-colors active:bg-gray-800"
+                aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
+              >
+                <Menu className="w-5 h-5 text-white" />
+              </button>
 
-//       {/* Main Content */}
-//       <div className="lg:ml-72 pb-20 lg:pb-0">
-//         {/* Top Bar */}
-//         <header className="sticky top-0 z-20 bg-black border-b border-gray-800">
-//           <div className="flex items-center justify-between px-4 py-3 lg:px-6 lg:py-4">
-//             {/* Left Side - Menu (Mobile) */}
-//             <div className="flex items-center gap-3">
-//               <button
-//                 onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-//                 className="lg:hidden p-2 rounded-lg hover:bg-gray-900 border border-gray-800 transition-colors"
-//                 aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
-//               >
-//                 {isSidebarOpen ? (
-//                   <X className="w-5 h-5 text-white" />
-//                 ) : (
-//                   <Menu className="w-5 h-5 text-white" />
-//                 )}
-//               </button>
+              <Link href="/dashboard" className="lg:hidden">
+                <span className="text-xl font-extrabold font-onest">
+                  FlowEdit
+                </span>
+              </Link>
+            </div>
 
-//               {/* Logo on Mobile */}
-//               <Link href="/dashboard" className="lg:hidden">
-//                 <Image
-//                   src="/Logo.png"
-//                   alt="Logo"
-//                   width={120}
-//                   height={40}
-//                   className="object-contain"
-//                   priority
-//                 />
-//               </Link>
-//             </div>
+           
+            <div className="flex items-center gap-2 lg:gap-3">
+             
+              <button 
+                className="hidden sm:flex bg-tertiary p-2.5 lg:p-3 rounded-full hover:bg-purple-500/20 transition-colors active:scale-95"
+                aria-label="Notifications"
+              >
+                <Bell className="text-accent w-4 h-4 lg:w-5 lg:h-5" />
+              </button>
 
-//             {/* Right Actions */}
-//             <div className="flex items-center gap-3">
-//               {/* Upgrade Button - Desktop - UNCHANGED */}
-//               <Link href="/dashboard/pricing" className="hidden sm:block">
-//                 <button className="relative overflow-hidden flex items-center justify-center gap-2 px-4 py-2 lg:px-6 lg:py-3 rounded-2xl bg-gradient-to-br from-white/5 via-black/80 to-black/90 border border-purple-500/10 shadow-[0_0_25px_-10px_rgba(168,85,247,0.7)] text-gray-100 hover:border-purple-400/70 hover:text-white hover:shadow-[0_0_35px_-10px_rgba(168,85,247,0.9)] transition-all duration-300 ease-in-out touch-manipulation">
-//                   <Globe className="w-4 h-4 lg:w-5 lg:h-5 text-purple-400" />
-//                   <span className="text-sm lg:text-base font-semibold">
-//                     Upgrade
-//                   </span>
-//                   <BorderBeam
-//                     size={70}
-//                     initialOffset={5}
-//                     color="#8B5CF6"
-//                     transition={{
-//                       type: "spring",
-//                       stiffness: 80,
-//                       damping: 20,
-//                     }}
-//                     className="from-transparent via-purple-500/80 to-transparent"
-//                   />
-//                 </button>
-//               </Link>
+            
+              <button 
+                className="hidden sm:flex bg-tertiary p-2.5 lg:p-3 rounded-full hover:bg-purple-500/20 transition-colors active:scale-95"
+                aria-label="Settings"
+              >
+                <Settings className="text-accent w-4 h-4 lg:w-5 lg:h-5" />
+              </button>
 
-//               {/* Mobile Upgrade Icon - UNCHANGED */}
-//               <Link href="/dashboard/pricing" className="sm:hidden">
-//                 <button
-//                   className="p-2 rounded-xl bg-purple-500/20 border border-purple-500/50 touch-manipulation"
-//                   aria-label="Upgrade plan"
-//                 >
-//                   <DollarSign className="w-5 h-5 text-purple-400" />
-//                 </button>
-//               </Link>
-//             </div>
-//           </div>
-//         </header>
+          
+              <Link
+                href="/dashboard/profile"
+                className="relative flex items-center gap-2 px-2 py-1.5 lg:px-3 lg:py-2 rounded-full lg:rounded-full bg-tertiary hover:border-purple-400/70 hover:shadow-[0_0_20px_-5px_rgba(168,85,247,0.7)] transition-all duration-300 active:scale-95"
+              >
+                <div className="relative w-7 h-7 lg:w-10 lg:h-10 rounded-full overflow-hidden bg-gradient-to-br from-purple-600 to-purple-400 flex-shrink-0">
+                  <Image
+                    src="https://images.pexels.com/photos/712513/pexels-photo-712513.jpeg"
+                    alt="Avatar"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-//         {/* Page Content */}
-//         <main>{children}</main>
-//       </div>
+                <span className="hidden lg:block text-sm lg:text-base font-semibold text-accent">
+                  John Doe
+                </span>
+              </Link>
+            </div>
+          </div>
+        </header>
 
-//       {/* Mobile Bottom Navigation */}
-//       <nav
-//         className="fixed bottom-0 left-0 right-0 z-30 lg:hidden bg-black border-t border-gray-800"
-//         role="navigation"
-//         aria-label="Mobile navigation"
-//       >
-//         <div className="grid grid-cols-4 gap-1 px-2 py-2">
-//           {navigation.map((item) => {
-//             const Icon = item.icon;
-//             const active = isActive(item.href);
+        <main className="min-h-[calc(100vh-8rem)]">{children}</main>
+      </div>
 
-//             return (
-//               <Link
-//                 key={item.name}
-//                 href={item.href}
-//                 className={`flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-lg transition-colors ${
-//                   active
-//                     ? "bg-purple-600 text-white"
-//                     : "text-gray-400 hover:bg-gray-900 hover:text-gray-200"
-//                 }`}
-//                 aria-current={active ? "page" : undefined}
-//               >
-//                 <Icon className="w-5 h-5" />
-//                 <span className="text-xs font-medium">{item.name}</span>
-//               </Link>
-//             );
-//           })}
-
-//           {/* Mobile Logout Button */}
-//           <button
-//             disabled={isLoading}
-//             onClick={onLogout}
-//             className={`flex flex-col items-center justify-center gap-1.5 py-3 px-1 rounded-lg text-gray-400 hover:bg-gray-900 hover:text-gray-200 transition-colors ${
-//               isLoading ? "opacity-50 cursor-not-allowed" : ""
-//             }`}
-//             aria-label={isLoading ? "Logging out" : "Logout"}
-//           >
-//             {isLoading ? (
-//               <>
-//                 <Loader2 className="w-5 h-5 animate-spin" />
-//                 <span className="text-xs font-medium">Wait...</span>
-//               </>
-//             ) : (
-//               <>
-//                 <LogOut className="w-5 h-5" />
-//                 <span className="text-xs font-medium">Logout</span>
-//               </>
-//             )}
-//           </button>
-//         </div>
-//       </nav>
-//     </div>
-//   );
-// }
+    </div>
+  );
+}
