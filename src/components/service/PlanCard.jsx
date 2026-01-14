@@ -10,7 +10,7 @@ const PlanCard = ({ plan }) => {
         }`}
     >
       {plan.highlighted && (
-        <span className="absolute top-2 md:top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-sm px-4 py-2 rounded-lg shadow">
+        <span className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-primary text-white text-sm px-4 py-2 rounded-lg shadow">
           Current Plan
         </span>
       )}
