@@ -119,14 +119,14 @@ const NotificationPage = () => {
           <h3 className="text-accent font-semibold text-xl md:text-2xl mb-2">
             Important Updates
           </h3>
-          <p className="text-accent text-sm md:text-lg">
-            Choose the plan that best fits your content needs.All plans include
+          <p className="text-accent text-xs md:text-lg">
+            Choose the plan that best fits your content needs. All plans include
             professional editing and fast delivery.
           </p>
         </div>
 
         <Link href="/dashboard/service">
-          <ChevronRight className="flex items-center text-accent w-8 h-8 md:w-10 md:h-10 " />
+          <ChevronRight className="flex items-center text-accent w-6 h-6 md:w-10 md:h-10 " />
         </Link>
       </section>
 
