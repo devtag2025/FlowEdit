@@ -13,10 +13,18 @@ const Invoice = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getInvoices().then((data) => {
-      setInvoices(data);
-      setLoading(false);
-    });
+    const fetchInvoices = async () => {
+      try {
+        const data = await getInvoices();
+        setInvoices(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInvoices();
   }, []);
 
   if (loading) return <Loader />;
@@ -56,7 +64,7 @@ const Invoice = () => {
         {invoices.map((invoice) => (
           <div
             key={invoice.id}
-            className="grid grid-cols-6 items-center px-5 py-6 font-medium text-accent border-slate-300 border-b-2"
+            className="grid grid-cols-6 items-center px-5 py-6 font-medium text-accent border-slate-300 border-b-2 hover:bg-gray-300"
           >
             <div className="flex gap-3 items-center">
               <FileText size={16} className="text-slate-800" />

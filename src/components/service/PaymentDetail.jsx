@@ -1,7 +1,16 @@
 import { CreditCard, Pencil, Plus, Trash2 } from "lucide-react";
 import { Button } from "../common/Button";
+import { useState } from "react";
+import BillingEditModal from "./EditModal/EditModal";
 
 const PaymentDetail = () => {
+  const [billing, setBilling] = useState({
+    companyName: "Acme Inc.",
+    billingEmail: "billing@acme.com",
+    address: "123 Market Street",
+    city: "San Francisco, CA 94105",
+  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
       <section className="max-w-5xl mx-auto bg-tertiary rounded-lg md:rounded-3xl p-3 md:p-6 mb-8 text-accent">
@@ -54,10 +63,19 @@ const PaymentDetail = () => {
             </p>
           </div>
 
-          <Button className="flex items-center justify-center w-12 md:w-10 h-10 border md:border-2 border-slate-300 rounded-lg text-accent hover:bg-gray-300">
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center justify-center w-12 md:w-10 h-10 border md:border-2 border-slate-300 rounded-lg text-accent hover:bg-gray-300"
+          >
             <Pencil className="w-4 h-4" />
           </Button>
         </div>
+
+        <BillingEditModal
+          isOpen={isModalOpen}
+          setIsOpen={setIsModalOpen}
+          billing={billing}
+        />
 
         <div className="grid grid-cols-2 md:grid-cols-4 md:bg-white md:p-6 rounded-2xl font-semibold gap-3 md:gap-4 text-accent">
           <div>
@@ -65,7 +83,7 @@ const PaymentDetail = () => {
               Company Name
             </p>
             <p className="text-slate-600 font-medium text-sm md:text-base">
-              Acme Inc.
+              {billing.companyName}
             </p>
           </div>
 
@@ -74,21 +92,21 @@ const PaymentDetail = () => {
               Billing Email
             </p>
             <p className="text-slate-600 font-medium text-sm md:text-base">
-              billing@acme.com
+              {billing.billingEmail}
             </p>
           </div>
 
           <div>
             <p className="text-accent mb-1 text-xs md:text-base">Address</p>
             <p className="text-slate-600 font-medium text-sm md:text-base">
-              123 Market Street
+              {billing.address}
             </p>
           </div>
 
           <div>
             <p className="text-accent mb-1 text-xs md:text-base">City/State</p>
             <p className="text-slate-600 font-medium text-sm md:text-base">
-              San Francisco, CA 94105
+              {billing.city}
             </p>
           </div>
         </div>
