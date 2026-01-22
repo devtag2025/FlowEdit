@@ -5,16 +5,8 @@ import { Button } from '@/components/ui/button';
 export default function ProjectDetailsSection() {
   const [showProjectDetails, setShowProjectDetails] = useState(false);
 
-  // Mapping the CSS variables for Tailwind (assuming they are defined in your globals.css)
-  // primary: #6a4dff
-  // secondary: #a5c9e8
-  // tertiary: #e8e3f8
-  // danger: #ff4d6a
-  // accent: #2d1b69
-
   return (
     <div className="pt-4 mt-4 space-y-3">
-      {/* Toggle Project Details Button */}
       <Button
         variant="ghost"
         onClick={() => setShowProjectDetails(!showProjectDetails)}
@@ -26,7 +18,6 @@ export default function ProjectDetailsSection() {
         {showProjectDetails ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
       </Button>
 
-      {/* Project Details Section */}
       {showProjectDetails && (
         <div className="relative animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="relative bg-white rounded-xl border border-gray-100 shadow-sm p-6">
@@ -34,7 +25,6 @@ export default function ProjectDetailsSection() {
               Full Project Details
             </h3>
 
-            {/* Editing Instructions */}
             <div className="mb-6 p-4 bg-gray-50/50 rounded-lg">
               <h4 className="text-xs font-bold text-[#2d1b69]/60 mb-2 uppercase tracking-widest">
                 Editing Instructions
@@ -44,7 +34,6 @@ export default function ProjectDetailsSection() {
               </p>
             </div>
 
-            {/* Branding Elements */}
             <div className="mb-6 p-4 bg-gray-50/50 rounded-lg">
               <h4 className="text-xs font-bold text-[#2d1b69]/60 mb-2 uppercase tracking-widest">
                 Branding Elements
@@ -54,7 +43,6 @@ export default function ProjectDetailsSection() {
               </p>
             </div>
 
-            {/* Cloud Folder Link */}
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <h4 className="text-xs font-bold text-[#2d1b69]/60 uppercase tracking-widest">
@@ -72,7 +60,6 @@ export default function ProjectDetailsSection() {
               </p>
             </div>
 
-            {/* Direct Uploads */}
             <div className="mb-8">
               <div className="flex items-center gap-2 mb-3">
                 <h4 className="text-xs font-bold text-[#2d1b69]/60 uppercase tracking-widest">
@@ -90,7 +77,6 @@ export default function ProjectDetailsSection() {
               </div>
             </div>
 
-            {/* Project Metadata */}
             <div className="pt-6 border-t border-gray-100">
               <h4 className="text-xs font-bold text-[#2d1b69]/60 mb-4 uppercase tracking-widest">
                 Project Metadata
