@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  X,
-  Play,
-  Edit2,
-  Download,
-  Paperclip,
-  CheckCircle,
-} from "lucide-react";
+import { X, Play, Edit2, Download, Paperclip, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -18,11 +11,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import ProjectDetailsSection from "./ProjectDetails";
-import { CornerDownLeft } from "lucide-react";
-import { MoveUpRight } from "lucide-react";
-import Link from "next/link";
 import { SendHorizonal } from "lucide-react";
-import { DialogPortal,DialogOverlay } from "@radix-ui/react-dialog";
+import { DialogPortal, DialogOverlay } from "@radix-ui/react-dialog";
 
 function ProjectDetailPopUp({ isOpen, onClose, project }) {
   const [message, setMessage] = useState("");
@@ -64,11 +54,16 @@ function ProjectDetailPopUp({ isOpen, onClose, project }) {
   ];
 
   return (
-<Dialog open={isOpen} onOpenChange={(open) => { if (!open) onClose(); }}>
-  <DialogPortal>
-    <DialogOverlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
-    <DialogContent
-      className="
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onClose();
+      }}
+    >
+      <DialogPortal>
+        <DialogOverlay className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
+        <DialogContent
+          className="
         fixed 
         left-[50%] 
         top-[50%] 
@@ -86,174 +81,179 @@ function ProjectDetailPopUp({ isOpen, onClose, project }) {
         rounded-3xl
         focus:outline-none
       "
-    >
-      <DialogHeader className="p-6 pb-4 border-b border-accent/10">
-        <div className="flex items-start justify-between gap-4">
-          <div className="flex-1">
-            <DialogTitle className="text-xl font-bold text-accent mb-2">
-              {project.name}
-            </DialogTitle>
+        >
+          <DialogHeader className="p-6 pb-4 border-b border-accent/10">
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex-1">
+                <DialogTitle className="text-xl font-bold text-accent mb-2">
+                  {project.name}
+                </DialogTitle>
 
-            <div className="flex flex-wrap items-center gap-3 text-xs text-accent/60">
-              <span>Updated on {project.lastUpdated}</span>
-              <span>•</span>
-              <span>{project.platform}</span>
-              <span>•</span>
-              <Badge className="bg-primary text-white border-0 text-xs px-2 py-0">
-                {project.status}
-              </Badge>
-            </div>
-          </div>
-
-          <button
-            onClick={onClose}
-            className="text-accent/60 hover:text-accent transition-colors"
-            aria-label="Close"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
-      </DialogHeader>
-
-      <div className="grid grid-cols-1 md:grid-cols-1 h-full">
-        <div className="p-6 space-y-4 overflow-hidden">
-          <div className="aspect-video bg-accent rounded-2xl flex items-center justify-center relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-accent/80 to-accent/60" />
-            <div className="relative z-10 text-center">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mb-3 mx-auto cursor-pointer hover:scale-110 transition-transform">
-                <Play className="w-8 h-8 text-white ml-1" />
+                <div className="flex flex-wrap items-center gap-3 text-xs text-accent/60">
+                  <span>Updated on {project.lastUpdated}</span>
+                  <span>•</span>
+                  <span>{project.platform}</span>
+                  <span>•</span>
+                  <Badge className="bg-primary text-white border-0 text-xs px-2 py-0">
+                    {project.status}
+                  </Badge>
+                </div>
               </div>
-              <p className="text-white/80 text-sm">Video preview coming soon</p>
-            </div>
-          </div>
 
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-accent/60">Video Project Version: 5</span>
-            <div className="flex gap-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-tertiary bg-primary rounded-2xl hover:bg-accent/5 gap-2 h-8"
+              <button
+                onClick={onClose}
+                className="text-accent/60 hover:text-accent transition-colors"
+                aria-label="Close"
               >
-                <Edit2 className="w-4 h-4" />
-                Edit
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-tertiary bg-primary rounded-2xl hover:bg-accent/5 gap-2 h-8"
-              >
-                <Download className="w-4 h-4" />
-                Download
-              </Button>
+                <X className="w-5 h-5" />
+              </button>
             </div>
-          </div>
+          </DialogHeader>
 
-          <div className="bg-white rounded-xl p-4 border border-accent/10">
-            <div className="flex items-center gap-2 mb-2">
-              <p className="text-sm font-semibold text-accent">
-                Project Description
-              </p>
-            </div>
-            <p className="text-sm text-accent/70 leading-relaxed">
-              Create a dynamic 60-second Instagram Reel showcasing our summer
-              product line. The video should feel energetic, vibrant, and capture
-              the excitement of summer adventures.
-            </p>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-accent">Progress</span>
-              <span className="text-xs font-semibold text-primary">
-                {project.progress}%
-              </span>
-            </div>
-            <div className="w-full h-2 bg-accent/10 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary rounded-full transition-all duration-500"
-                style={{ width: `${project.progress}%` }}
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="p-6 flex flex-col h-full">
-          <h4 className="text-sm font-semibold text-accent mb-4">
-            Project Messages
-          </h4>
-          <div className="space-y-3 overflow-y-auto pr-2 flex-1 nice-scrollbar">
-            {messages.map((msg) => (
-              <div key={msg.id} className="flex gap-3">
-                <Avatar className="w-8 h-8 shrink-0">
-                  {msg.avatar ? (
-                    <AvatarImage src={msg.avatar} alt={msg.user} />
-                  ) : (
-                    <AvatarFallback className="bg-accent/20 text-accent text-xs">
-                      E
-                    </AvatarFallback>
-                  )}
-                </Avatar>
-
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-semibold text-accent">
-                      {msg.user}
-                    </span>
-                    <span className="text-xs text-accent/60">{msg.time}</span>
+          <div className="grid grid-cols-1 md:grid-cols-1 h-full">
+            <div className="p-6 space-y-4 overflow-hidden">
+              <div className="aspect-video bg-accent rounded-2xl flex items-center justify-center relative overflow-hidden group">
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/80 to-accent/60" />
+                <div className="relative z-10 text-center">
+                  <div className="w-16 h-16 bg-white/20 backdrop-blur rounded-full flex items-center justify-center mb-3 mx-auto cursor-pointer hover:scale-110 transition-transform">
+                    <Play className="w-8 h-8 text-white ml-1" />
                   </div>
-                  <p className="text-xs text-accent/80 leading-relaxed">
-                    {msg.message}
+                  <p className="text-white/80 text-sm">
+                    Video preview coming soon
                   </p>
                 </div>
               </div>
-            ))}
-          </div>
 
-          <div className="pt-4">
-            <div className="relative">
-              <Input
-                placeholder="Reply..."
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="bg-white border-accent/20 text-accent placeholder:text-accent/40 focus:border-primary focus:ring-primary py-5 pr-20 rounded-3xl"
-              />
-              <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
-                <button
-                  className="p-2 rounded-full hover:bg-accent/5 transition-colors"
-                  aria-label="Attach file"
-                >
-                  <Paperclip className="w-4 h-4 text-accent" />
-                </button>
-                <button onClick={handleSendMessage} aria-label="Send">
-                  <SendHorizonal className="w-4 h-4 text-accent" />
-                </button>
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-accent/60">Video Project Version: 5</span>
+                <div className="flex gap-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-tertiary bg-primary rounded-2xl hover:bg-accent/5 gap-2 h-8"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                    Edit
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-tertiary bg-primary rounded-2xl hover:bg-accent/5 gap-2 h-8"
+                  >
+                    <Download className="w-4 h-4" />
+                    Download
+                  </Button>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl p-4 border border-accent/10">
+                <div className="flex items-center gap-2 mb-2">
+                  <p className="text-sm font-semibold text-accent">
+                    Project Description
+                  </p>
+                </div>
+                <p className="text-sm text-accent/70 leading-relaxed">
+                  Create a dynamic 60-second Instagram Reel showcasing our
+                  summer product line. The video should feel energetic, vibrant,
+                  and capture the excitement of summer adventures.
+                </p>
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-xs font-semibold text-accent">
+                    Progress
+                  </span>
+                  <span className="text-xs font-semibold text-primary">
+                    {project.progress}%
+                  </span>
+                </div>
+                <div className="w-full h-2 bg-accent/10 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-primary rounded-full transition-all duration-500"
+                    style={{ width: `${project.progress}%` }}
+                  />
+                </div>
               </div>
             </div>
 
-            <div className="border-t border-accent/10 pt-4 mt-4 space-y-3">
-          <ProjectDetailsSection />
+            <div className="p-6 flex flex-col h-full">
+              <h4 className="text-sm font-semibold text-accent mb-4">
+                Project Messages
+              </h4>
+              <div className="space-y-3 overflow-y-auto pr-2 flex-1 nice-scrollbar">
+                {messages.map((msg) => (
+                  <div key={msg.id} className="flex gap-3">
+                    <Avatar className="w-8 h-8 shrink-0">
+                      {msg.avatar ? (
+                        <AvatarImage src={msg.avatar} alt={msg.user} />
+                      ) : (
+                        <AvatarFallback className="bg-accent/20 text-accent text-xs">
+                          E
+                        </AvatarFallback>
+                      )}
+                    </Avatar>
 
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-semibold text-accent">
+                          {msg.user}
+                        </span>
+                        <span className="text-xs text-accent/60">
+                          {msg.time}
+                        </span>
+                      </div>
+                      <p className="text-xs text-accent/80 leading-relaxed">
+                        {msg.message}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-              <div className="flex flex-col sm:flex-row sm:justify-end gap-2 w-full">
-                <Button
-                  variant="outline"
-                  className="border-primary text-primary hover:bg-primary/10 w-full sm:w-auto"
-                >
-                  Request Revision
-                </Button>
+              <div className="pt-4">
+                <div className="relative">
+                  <Input
+                    placeholder="Reply..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="bg-white border-accent/20 text-accent placeholder:text-accent/40 focus:border-primary focus:ring-primary py-5 pr-20 rounded-3xl"
+                  />
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+                    <button
+                      className="p-2 rounded-full hover:bg-accent/5 transition-colors"
+                      aria-label="Attach file"
+                    >
+                      <Paperclip className="w-4 h-4 text-accent" />
+                    </button>
+                    <button onClick={handleSendMessage} aria-label="Send">
+                      <SendHorizonal className="w-4 h-4 text-accent" />
+                    </button>
+                  </div>
+                </div>
 
-                <Button className="bg-primary hover:bg-primary/90 text-white w-full sm:w-auto">
-                  Approve Final Video
-                </Button>
+                <div className="border-t border-accent/10 pt-4 mt-4 space-y-3">
+                  <ProjectDetailsSection />
+
+                  <div className="flex flex-col sm:flex-row sm:justify-end gap-2 w-full">
+                    <Button
+                      variant="outline"
+                      className="border-primary text-primary hover:bg-primary/10 w-full sm:w-auto"
+                    >
+                      Request Revision
+                    </Button>
+
+                    <Button className="bg-primary hover:bg-primary/90 text-white w-full sm:w-auto">
+                      Approve Final Video
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </DialogContent>
-  </DialogPortal>
-</Dialog>
+        </DialogContent>
+      </DialogPortal>
+    </Dialog>
   );
 }
 

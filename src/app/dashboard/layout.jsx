@@ -32,11 +32,6 @@ export default function DashboardLayout({ children }) {
       icon: LayoutDashboard,
     },
     {
-      name: "Projects",
-      href: "/dashboard/projects",
-      icon: NotebookIcon,
-    },
-    {
       name: "Notification",
       href: "/dashboard/notification",
       icon: Bell,
@@ -107,11 +102,11 @@ export default function DashboardLayout({ children }) {
               const active = isActive(item.href);
 
               return (
-            <Link
-  key={item.name}
-  href={item.href}
-  onClick={() => setIsSidebarOpen(false)}
-  className={`relative flex items-center gap-3 px-5 py-2 rounded-xl transition-all duration-300 group
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  onClick={() => setIsSidebarOpen(false)}
+                  className={`relative flex items-center gap-3 px-5 py-2 rounded-xl transition-all duration-300 group
     ${
       active
         ? `
@@ -127,21 +122,21 @@ export default function DashboardLayout({ children }) {
         `
     }
   `}
-  aria-current={active ? "page" : undefined}
->
+                  aria-current={active ? "page" : undefined}
+                >
                   <div
-  className={`group flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
-    active ? "bg-tertiary" : "bg-transparent"
-  }`}
->
-  <Icon
-    className={`w-5 h-5 transition-colors ${
-      active
-        ? "text-accent"
-        : "text-white/70 group-hover:text-tertiary/80"
-    }`}
-  />
-</div>
+                    className={`group flex h-7 w-7 items-center justify-center rounded-full transition-colors ${
+                      active ? "bg-tertiary" : "bg-transparent"
+                    }`}
+                  >
+                    <Icon
+                      className={`w-5 h-5 transition-colors ${
+                        active
+                          ? "text-accent"
+                          : "text-white/70 group-hover:text-tertiary/80"
+                      }`}
+                    />
+                  </div>
 
                   <span
                     className={`font-medium ${
@@ -152,7 +147,6 @@ export default function DashboardLayout({ children }) {
                   >
                     {item.name}
                   </span>
-                 
                 </Link>
               );
             })}

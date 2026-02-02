@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Plus, Search, Edit, Download, MessageCircle } from "lucide-react";
 import { stats, filters, projects } from "@/utils/dashboard";
@@ -8,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { StatusBadge, ActionButton } from "@/components/Dashboard/StatusBadge";
 import FilterButton from "@/components/Dashboard/FilterButton";
 import NewProjectRequestModal from "@/components/Dashboard/NewProjectModal/Modal";
-import ProjectDetailPopUp from "@/components/Dashboard/ProjectPopUp/ProjectDetailPopUp";
 import {
   Select,
   SelectContent,
@@ -18,25 +18,15 @@ import {
 } from "@/components/ui/select";
 
 const Dashboard = () => {
+  const router = useRouter();
+
   const [activeFilter, setActiveFilter] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
 
-  const [isProjectDetailOpen, setIsProjectDetailOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState(null);
-
   const handleOpenProject = (project) => {
-    setSelectedProject(project);
-    setIsProjectDetailOpen(true);
+    router.push(`/dashboard/projects/${project.id}`);
   };
-
-  const handleCloseProject = () => {
-    setIsProjectDetailOpen(false);
-    // optional: clear selection after close
-    // setSelectedProject(null);import {
-
-} 
-  
 
   const filteredProjects = projects.filter((project) => {
     const matchesFilter =
@@ -74,12 +64,6 @@ const Dashboard = () => {
           <NewProjectRequestModal
             isOpen={isProjectModalOpen}
             setIsOpen={setIsProjectModalOpen}
-          />
-
-          <ProjectDetailPopUp
-            isOpen={isProjectDetailOpen}
-            onClose={handleCloseProject}
-            project={selectedProject}
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
