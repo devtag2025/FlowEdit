@@ -9,6 +9,12 @@ import { projects } from "@/utils/dashboard";
 import Link from "next/link";
 import ProjectComments from "./ProjectComments";
 import ProjectApprovePopup from "./ProjectApprovePopup";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 function ProjectSection({ projectId }) {
   const [showDetails, setShowDetails] = useState(false);
@@ -75,46 +81,71 @@ function ProjectSection({ projectId }) {
               <span className="text-sm md:text-lg font-semibold">
                 Video Project Version: 5
               </span>
-
-              <div className="flex gap-2">
-                {isApproved ? (
-                  <div className="flex flex-col items-end gap-2">
-                    <div className="flex items-center gap-2 text-[#22C55E] font-bold text-sm md:text-xl">
-                      <Check className="w-5 h-5" /> Approved
+              <TooltipProvider delayDuration={200}>
+                <div className="flex gap-2">
+                  {isApproved ? (
+                    <div className="flex flex-col items-end gap-2">
+                      <div className="flex items-center gap-2 text-[#22C55E] font-bold text-sm md:text-xl">
+                        <Check className="w-5 h-5" /> Approved
+                      </div>
+                      <p className="text-[10px] text-xs md:text-sm text-slate-600">
+                        Final files are available in your Cloud Folder
+                      </p>
+                      <button className="text-primary font-bold text-xs md:text-sm hover:underline cursor-pointer">
+                        Open Cloud Folder →
+                      </button>
                     </div>
-                    <p className="text-[10px] text-xs md:text-sm text-slate-600">
-                      Final files are available in your Cloud Folder
-                    </p>
-                    <button className="text-primary font-bold text-xs md:text-sm hover:underline cursor-pointer">
-                      Open Cloud Folder →
-                    </button>
-                  </div>
-                ) : (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="lg"
-                      className={`border md:rounded-xl md:px-5 md:py-6 transition text-xs md:text-base ${
-                        isRevising
-                          ? "bg-gray-200 text-gray-600 border-gray-600 cursor-not-allowed"
-                          : "text-primary border-primary cursor-pointer"
-                      }`}
-                      disabled={isRevising}
-                      onClick={handleRevise}
-                    >
-                      {isRevising ? "Submitted" : "Revise"}
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="lg"
-                      className="text-white text-xs md:text-base bg-primary md:px-5 md:py-6 md:rounded-xl gap-2 cursor-pointer"
-                      onClick={() => setIsApproveOpen(true)}
-                    >
-                      Approve
-                    </Button>
-                  </>
-                )}
-              </div>
+                  ) : (
+                    <>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="lg"
+                            className={`border md:rounded-xl md:px-5 md:py-6 transition text-xs md:text-base ${
+                              isRevising
+                                ? "bg-gray-200 text-gray-600 border-gray-600 cursor-not-allowed"
+                                : "text-primary border-primary cursor-pointer"
+                            }`}
+                            disabled={isRevising}
+                            onClick={handleRevise}
+                          >
+                            {isRevising ? "Submitted" : "Revise"}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="top"
+                          align="center"
+                          className="max-w-xs text-xs"
+                        >
+                          Request Changes & send feedback to the editor
+                        </TooltipContent>
+                      </Tooltip>
+
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="lg"
+                            className="text-white text-xs md:text-base bg-primary md:px-5 md:py-6 md:rounded-xl gap-2 cursor-pointer"
+                            onClick={() => setIsApproveOpen(true)}
+                          >
+                            Approve
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="top"
+                          align="center"
+                          className="max-w-xs text-xs"
+                        >
+                          Approve this version as final. Files will be delivered
+                          to your Cloud folder
+                        </TooltipContent>
+                      </Tooltip>
+                    </>
+                  )}
+                </div>
+              </TooltipProvider>
             </div>
 
             <ProjectApprovePopup

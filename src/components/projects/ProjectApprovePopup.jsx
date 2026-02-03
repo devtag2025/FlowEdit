@@ -77,20 +77,20 @@ const ProjectApprovePopup = ({ isOpen, onClose, onApprovalComplete }) => {
         >
           <DialogHeader className="bg-tertiary border-primary/20 p-10 pb-4 top-0">
             <div className="relative">
-              <DialogTitle className="text-slate-900 text-2xl font-bold">
+              <DialogTitle className="text-slate-900 md:text-2xl text-left font-bold">
                 Rate and Approve
               </DialogTitle>
 
               <DialogClose asChild>
                 <button
-                  className="absolute right-0 top-0 rounded-md p-2 text-accent/60 hover:text-accent hover:bg-accent/10 transition"
+                  className="absolute right-0 top-0 rounded-md text-accent/60 hover:text-accent transition cursor-pointer"
                   aria-label="Close"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </DialogClose>
             </div>
-            <DialogDescription className="text-md text-gray-400">
+            <DialogDescription className="text-md text-gray-400 text-left">
               Rate and approve project for delivery. Project will be added to
               your cloud storage folder.
             </DialogDescription>
